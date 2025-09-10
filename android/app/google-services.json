@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341601045251",
+    "project_id": "kopicue-188a2",
+    "storage_bucket": "kopicue-188a2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341601045251:android:acda2e703be84ab8e43736",
+        "android_client_info": {
+          "package_name": "com.example.kopicue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeXoHNIppxMJyopMxicxg0j0jPLMYsMl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
