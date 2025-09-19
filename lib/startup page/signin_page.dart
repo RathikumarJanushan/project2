@@ -1,8 +1,11 @@
 // lib/signin_page.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kopicue/admin/adminhome.dart';
 import 'package:kopicue/app_bar.dart';
 import 'signup_page.dart';
+// TODO: adjust import to your project structure
 
 class SignInPage extends StatefulWidget {
   static const route = '/signin';
@@ -25,17 +28,46 @@ class _SignInPageState extends State<SignInPage> {
       _err = null;
     });
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
+
+      final user = cred.user;
+      if (user == null)
+        throw FirebaseAuthException(code: 'no-user', message: 'User not found');
+
+      // Upsert user doc with UID, email, and lastLogin
+      final uid = user.uid;
+      final users = FirebaseFirestore.instance.collection('user');
+      await users.doc(uid).set({
+        'uid': uid,
+        'email': user.email,
+        'userName': user.displayName, // may be null
+        'lastLogin': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
+
+      // Read role and route
+      final snap = await users.doc(uid).get();
+      final data = snap.data() ?? {};
+      final role = (data['role'] as String?)?.toLowerCase() ?? 'customer';
+
       if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const AppShell()),
-      );
+      if (role == 'admin') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const AdminHome()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const AppShell()),
+        );
+      }
     } on FirebaseAuthException catch (e) {
       setState(() => _err = e.message);
+    } catch (e) {
+      setState(() => _err = e.toString());
     } finally {
       if (mounted) setState(() => _busy = false);
     }

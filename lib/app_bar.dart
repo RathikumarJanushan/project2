@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kopicue/user/home.dart';
+import 'package:kopicue/user/menu.dart';
 
 import 'userscreen/signin_page.dart';
 import 'userscreen/signup_page.dart';
@@ -16,7 +17,7 @@ class _AppShellState extends State<AppShell> {
 
   late final List<_TabDef> _tabs = [
     _TabDef('Home', Icons.home, const HomePage()),
-    _TabDef('Menu', Icons.restaurant_menu, const _CenterLabel('Menu')),
+    _TabDef('Menu', Icons.restaurant_menu, const MenuPage()),
     _TabDef('Reward', Icons.card_giftcard, const _CenterLabel('Reward')),
     _TabDef('Account', Icons.person, const _CenterLabel('Account')),
   ];

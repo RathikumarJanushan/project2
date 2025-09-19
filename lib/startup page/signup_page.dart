@@ -1,6 +1,7 @@
 // lib/signup_page.dart
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kopicue/app_bar.dart';
 import 'signin_page.dart';
 
@@ -30,9 +31,25 @@ class _SignUpPageState extends State<SignUpPage> {
         email: _email.text.trim(),
         password: _password.text.trim(),
       );
-      if (_name.text.trim().isNotEmpty) {
-        await cred.user?.updateDisplayName(_name.text.trim());
+
+      final user = cred.user;
+      final name = _name.text.trim();
+
+      if (name.isNotEmpty) {
+        await user?.updateDisplayName(name);
       }
+
+      // Save profile to Firestore: collection "user", docId = uid
+      if (user != null) {
+        await FirebaseFirestore.instance.collection('user').doc(user.uid).set({
+          'email': user.email,
+          'userName': name.isNotEmpty ? name : user.displayName,
+          'role': 'customer',
+          'createdAt': FieldValue.serverTimestamp(),
+          'updatedAt': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+      }
+
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -70,7 +87,10 @@ class _SignUpPageState extends State<SignUpPage> {
             TextField(
               controller: _email,
               keyboardType: TextInputType.emailAddress,
-              autofillHints: const [AutofillHints.username, AutofillHints.email],
+              autofillHints: const [
+                AutofillHints.username,
+                AutofillHints.email
+              ],
               decoration: const InputDecoration(labelText: 'Email'),
             ),
             const SizedBox(height: 12),
@@ -81,7 +101,8 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(
                 labelText: 'Password',
                 suffixIcon: IconButton(
-                  icon: Icon(_obscure ? Icons.visibility : Icons.visibility_off),
+                  icon:
+                      Icon(_obscure ? Icons.visibility : Icons.visibility_off),
                   onPressed: () => setState(() => _obscure = !_obscure),
                 ),
               ),
