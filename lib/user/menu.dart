@@ -103,7 +103,7 @@ class _MenuPageState extends State<MenuPage> {
                       backgroundColor: kPrimary,
                       foregroundColor: kWhite,
                       icon: const Icon(Icons.chat_bubble_outline),
-                      label: Text('LKR ${total.toStringAsFixed(2)}'),
+                      label: Text('RM ${total.toStringAsFixed(2)}'),
                     );
                   },
                 ),
@@ -395,7 +395,7 @@ class _MenuGrid extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16)),
                           const SizedBox(height: 4),
-                          Text('LKR ${price.toStringAsFixed(2)}',
+                          Text('RM ${price.toStringAsFixed(2)}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: kWhite, fontWeight: FontWeight.w600)),
@@ -532,7 +532,7 @@ void _showItemSheet(BuildContext context, _MenuKind kind,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 18)),
                           const SizedBox(height: 6),
-                          Text('LKR ${price.toStringAsFixed(2)}',
+                          Text('RM ${price.toStringAsFixed(2)}',
                               style: const TextStyle(
                                   color: kWhite, fontWeight: FontWeight.w600)),
                           if (kind == _MenuKind.foods && dbNote.isNotEmpty) ...[
@@ -605,7 +605,7 @@ void _showItemSheet(BuildContext context, _MenuKind kind,
                     ),
                     _QtyBtn(icon: Icons.add, onTap: () => setS(() => qty++)),
                     const Spacer(),
-                    Text('Total: LKR ${total().toStringAsFixed(2)}',
+                    Text('Total: RM ${total().toStringAsFixed(2)}',
                         style: const TextStyle(
                             color: kWhite, fontWeight: FontWeight.w700)),
                   ],

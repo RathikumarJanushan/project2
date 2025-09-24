@@ -391,7 +391,7 @@ class _EditDeleteDrinksMenuPageState extends State<EditDeleteDrinksMenuPage> {
                               )
                             : const Icon(Icons.local_drink, color: kWhite),
                       ),
-                      title: Text('$name • LKR $price',
+                      title: Text('$name • RM $price',
                           style: const TextStyle(
                               color: kWhite, fontWeight: FontWeight.w600)),
                       subtitle: Text('Category: $category   Status: $status',

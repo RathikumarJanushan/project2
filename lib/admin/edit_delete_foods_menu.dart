@@ -388,7 +388,7 @@ class _EditDeleteFoodsMenuPageState extends State<EditDeleteFoodsMenuPage> {
                               )
                             : const Icon(Icons.restaurant, color: kWhite),
                       ),
-                      title: Text('$name • LKR $price',
+                      title: Text('$name • RM $price',
                           style: const TextStyle(
                               color: kWhite, fontWeight: FontWeight.w600)),
                       subtitle: Text('Category: $category   Status: $status',

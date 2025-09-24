@@ -1,5 +1,18 @@
 # kopicue
 
+#A26334
+#2A2928
+#B7B7B6
+#FFFFFF
+
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+
+git push -u origin main
+
 A new Flutter project.
 
 ## Getting Started

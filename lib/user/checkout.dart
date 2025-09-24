@@ -118,7 +118,7 @@ class CheckoutPage extends StatelessWidget {
                                     ),
                                   const SizedBox(height: 6),
                                   Text(
-                                      'LKR ${(price * qty).toStringAsFixed(2)}'),
+                                      'RM ${(price * qty).toStringAsFixed(2)}'),
                                 ],
                               ),
                             ),
@@ -167,7 +167,7 @@ class CheckoutPage extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text('Total: LKR ${total.toStringAsFixed(2)}',
+                    Text('Total: RM ${total.toStringAsFixed(2)}',
                         style: const TextStyle(
                             color: kWhite,
                             fontWeight: FontWeight.w800,
